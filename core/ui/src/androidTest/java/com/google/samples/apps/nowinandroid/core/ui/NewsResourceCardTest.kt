@@ -21,8 +21,9 @@ import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import com.google.samples.apps.nowinandroid.core.domain.model.previewFollowableTopics
-import com.google.samples.apps.nowinandroid.core.domain.model.previewUserNewsResources
+import com.google.samples.apps.nowinandroid.core.domain.model.FollowableTopic
+import com.google.samples.apps.nowinandroid.core.domain.model.UserNewsResource
+import com.google.samples.apps.nowinandroid.core.testing.data.createFollowableTopicTestData
 import org.junit.Rule
 import org.junit.Test
 
@@ -30,9 +31,12 @@ class NewsResourceCardTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    private val newsResourceTestData: List<UserNewsResource> = createUserNewsResourcesTestData()
+    private val topicTestData: List<FollowableTopic> = createFollowableTopicTestData()
+
     @Test
     fun testMetaDataDisplay_withCodelabResource() {
-        val newsWithKnownResourceType = previewUserNewsResources[0]
+        val newsWithKnownResourceType = newsResourceTestData[0]
         var dateFormatted = ""
 
         composeTestRule.setContent {
@@ -59,7 +63,7 @@ class NewsResourceCardTest {
 
     @Test
     fun testMetaDataDisplay_withUnknownResource() {
-        val newsWithUnknownResourceType = previewUserNewsResources[3]
+        val newsWithUnknownResourceType = newsResourceTestData[3]
         var dateFormatted = ""
 
         composeTestRule.setContent {
@@ -81,10 +85,10 @@ class NewsResourceCardTest {
     @Test
     fun testTopicsChipColorBackground_matchesFollowedState() {
         composeTestRule.setContent {
-            NewsResourceTopics(topics = previewFollowableTopics)
+            NewsResourceTopics(topics = topicTestData)
         }
 
-        for (followableTopic in previewFollowableTopics) {
+        for (followableTopic in topicTestData) {
             val topicName = followableTopic.topic.name
             val expectedContentDescription = if (followableTopic.isFollowed) {
                 "$topicName is followed"

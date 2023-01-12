@@ -30,8 +30,9 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
-import com.google.samples.apps.nowinandroid.core.domain.model.previewUserNewsResources
+import com.google.samples.apps.nowinandroid.core.domain.model.UserNewsResource
 import com.google.samples.apps.nowinandroid.core.ui.NewsFeedUiState
+import com.google.samples.apps.nowinandroid.core.ui.createUserNewsResourcesTestData
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.junit.Rule
@@ -44,6 +45,7 @@ class BookmarksScreenTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+    private val newsResourceTestData: List<UserNewsResource> = createUserNewsResourcesTestData()
 
     @Test
     fun loading_showsLoadingSpinner() {
@@ -66,7 +68,7 @@ class BookmarksScreenTest {
         composeTestRule.setContent {
             BookmarksScreen(
                 feedState = NewsFeedUiState.Success(
-                    previewUserNewsResources.take(2)
+                    newsResourceTestData.take(2)
                 ),
                 removeFromBookmarks = { }
             )
@@ -74,7 +76,7 @@ class BookmarksScreenTest {
 
         composeTestRule
             .onNodeWithText(
-                previewUserNewsResources[0].title,
+                newsResourceTestData[0].title,
                 substring = true
             )
             .assertExists()
@@ -83,14 +85,14 @@ class BookmarksScreenTest {
         composeTestRule.onNode(hasScrollToNodeAction())
             .performScrollToNode(
                 hasText(
-                    previewUserNewsResources[1].title,
+                    newsResourceTestData[1].title,
                     substring = true
                 )
             )
 
         composeTestRule
             .onNodeWithText(
-                previewUserNewsResources[1].title,
+                newsResourceTestData[1].title,
                 substring = true
             )
             .assertExists()
@@ -104,10 +106,10 @@ class BookmarksScreenTest {
         composeTestRule.setContent {
             BookmarksScreen(
                 feedState = NewsFeedUiState.Success(
-                    previewUserNewsResources.take(2)
+                    newsResourceTestData.take(2)
                 ),
                 removeFromBookmarks = { newsResourceId ->
-                    assertEquals(previewUserNewsResources[0].id, newsResourceId)
+                    assertEquals(newsResourceTestData[0].id, newsResourceId)
                     removeFromBookmarksCalled = true
                 }
             )
@@ -121,7 +123,7 @@ class BookmarksScreenTest {
             ).filter(
                 hasAnyAncestor(
                     hasText(
-                        previewUserNewsResources[0].title,
+                        newsResourceTestData[0].title,
                         substring = true
                     )
                 )

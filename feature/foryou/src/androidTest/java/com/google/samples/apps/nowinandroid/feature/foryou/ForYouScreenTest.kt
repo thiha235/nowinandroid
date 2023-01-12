@@ -29,9 +29,10 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToNode
 import com.google.samples.apps.nowinandroid.core.domain.model.FollowableTopic
-import com.google.samples.apps.nowinandroid.core.domain.model.previewUserNewsResources
+import com.google.samples.apps.nowinandroid.core.domain.model.UserNewsResource
 import com.google.samples.apps.nowinandroid.core.model.data.Topic
 import com.google.samples.apps.nowinandroid.core.ui.NewsFeedUiState
+import com.google.samples.apps.nowinandroid.core.ui.createUserNewsResourcesTestData
 import org.junit.Rule
 import org.junit.Test
 
@@ -219,12 +220,14 @@ class ForYouScreenTest {
 
     @Test
     fun feed_whenNoInterestsSelectionAndLoaded_showsFeed() {
+        val userNewsResourceTestData: List<UserNewsResource> = createUserNewsResourcesTestData()
+
         composeTestRule.setContent {
             ForYouScreen(
                 isSyncing = false,
                 onboardingUiState = OnboardingUiState.NotShown,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = userNewsResourceTestData
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
@@ -234,7 +237,7 @@ class ForYouScreenTest {
 
         composeTestRule
             .onNodeWithText(
-                previewUserNewsResources[0].title,
+                userNewsResourceTestData[0].title,
                 substring = true
             )
             .assertExists()
@@ -243,14 +246,14 @@ class ForYouScreenTest {
         composeTestRule.onNode(hasScrollToNodeAction())
             .performScrollToNode(
                 hasText(
-                    previewUserNewsResources[1].title,
+                    userNewsResourceTestData[1].title,
                     substring = true
                 )
             )
 
         composeTestRule
             .onNodeWithText(
-                previewUserNewsResources[1].title,
+                userNewsResourceTestData[1].title,
                 substring = true
             )
             .assertExists()

@@ -46,17 +46,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.samples.apps.nowinandroid.core.designsystem.component.NiaLoadingWheel
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
-import com.google.samples.apps.nowinandroid.core.domain.model.previewUserNewsResources
+import com.google.samples.apps.nowinandroid.core.domain.model.UserNewsResource
 import com.google.samples.apps.nowinandroid.core.ui.NewsFeedUiState
 import com.google.samples.apps.nowinandroid.core.ui.NewsFeedUiState.Loading
 import com.google.samples.apps.nowinandroid.core.ui.NewsFeedUiState.Success
 import com.google.samples.apps.nowinandroid.core.ui.TrackScrollJank
+import com.google.samples.apps.nowinandroid.core.ui.UserNewsResourcePreviewParameterProvider
 import com.google.samples.apps.nowinandroid.core.ui.newsFeed
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -179,12 +181,13 @@ private fun LoadingStatePreview() {
 
 @Preview
 @Composable
-private fun BookmarksGridPreview() {
+private fun BookmarksGridPreview(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>
+) {
     NiaTheme {
         BookmarksGrid(
-            feedState = Success(
-                previewUserNewsResources
-            ),
+            feedState = Success(userNewsResources),
             removeFromBookmarks = {}
         )
     }

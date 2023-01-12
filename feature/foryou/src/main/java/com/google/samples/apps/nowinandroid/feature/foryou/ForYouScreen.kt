@@ -68,6 +68,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
@@ -82,12 +83,11 @@ import com.google.samples.apps.nowinandroid.core.designsystem.component.NiaIconT
 import com.google.samples.apps.nowinandroid.core.designsystem.component.NiaOverlayLoadingWheel
 import com.google.samples.apps.nowinandroid.core.designsystem.icon.NiaIcons
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
-import com.google.samples.apps.nowinandroid.core.domain.model.FollowableTopic
-import com.google.samples.apps.nowinandroid.core.domain.model.previewUserNewsResources
-import com.google.samples.apps.nowinandroid.core.model.data.previewTopics
+import com.google.samples.apps.nowinandroid.core.domain.model.UserNewsResource
 import com.google.samples.apps.nowinandroid.core.ui.DevicePreviews
 import com.google.samples.apps.nowinandroid.core.ui.NewsFeedUiState
 import com.google.samples.apps.nowinandroid.core.ui.TrackScrollJank
+import com.google.samples.apps.nowinandroid.core.ui.UserNewsResourcePreviewParameterProvider
 import com.google.samples.apps.nowinandroid.core.ui.newsFeed
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -388,14 +388,17 @@ fun TopicIcon(
 
 @DevicePreviews
 @Composable
-fun ForYouScreenPopulatedFeed() {
+fun ForYouScreenPopulatedFeed(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>
+) {
     BoxWithConstraints {
         NiaTheme {
             ForYouScreen(
                 isSyncing = false,
                 onboardingUiState = OnboardingUiState.NotShown,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = userNewsResources
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
@@ -407,14 +410,17 @@ fun ForYouScreenPopulatedFeed() {
 
 @DevicePreviews
 @Composable
-fun ForYouScreenOfflinePopulatedFeed() {
+fun ForYouScreenOfflinePopulatedFeed(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>
+) {
     BoxWithConstraints {
         NiaTheme {
             ForYouScreen(
                 isSyncing = false,
                 onboardingUiState = OnboardingUiState.NotShown,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = userNewsResources
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
@@ -426,16 +432,19 @@ fun ForYouScreenOfflinePopulatedFeed() {
 
 @DevicePreviews
 @Composable
-fun ForYouScreenTopicSelection() {
+fun ForYouScreenTopicSelection(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>
+) {
     BoxWithConstraints {
         NiaTheme {
             ForYouScreen(
                 isSyncing = false,
                 onboardingUiState = OnboardingUiState.Shown(
-                    topics = previewTopics.map { FollowableTopic(it, false) },
+                    topics = userNewsResources.flatMap { news -> news.followableTopics },
                 ),
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = userNewsResources
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
@@ -464,14 +473,17 @@ fun ForYouScreenLoading() {
 
 @DevicePreviews
 @Composable
-fun ForYouScreenPopulatedAndLoading() {
+fun ForYouScreenPopulatedAndLoading(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>
+) {
     BoxWithConstraints {
         NiaTheme {
             ForYouScreen(
                 isSyncing = true,
                 onboardingUiState = OnboardingUiState.Loading,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = userNewsResources
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
