@@ -115,7 +115,7 @@ class InterestsScreenTest {
         InterestsScreen(
             uiState = uiState,
             followTopic = { _, _ -> },
-            navigateToTopic = {}
+            onTopicClick = {}
         )
     }
 }

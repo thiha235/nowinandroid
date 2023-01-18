@@ -36,7 +36,7 @@ import com.google.samples.apps.nowinandroid.core.ui.DevicePreviews
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun InterestsRoute(
-    navigateToTopic: (String) -> Unit,
+    onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InterestsViewModel = hiltViewModel()
 ) {
@@ -45,7 +45,7 @@ internal fun InterestsRoute(
     InterestsScreen(
         uiState = uiState,
         followTopic = viewModel::followTopic,
-        navigateToTopic = navigateToTopic,
+        onTopicClick = onTopicClick,
         modifier = modifier
     )
 }
@@ -54,7 +54,7 @@ internal fun InterestsRoute(
 internal fun InterestsScreen(
     uiState: InterestsUiState,
     followTopic: (String, Boolean) -> Unit,
-    navigateToTopic: (String) -> Unit,
+    onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -70,7 +70,7 @@ internal fun InterestsScreen(
             is InterestsUiState.Interests ->
                 TopicsTabContent(
                     topics = uiState.topics,
-                    onTopicClick = navigateToTopic,
+                    onTopicClick = onTopicClick,
                     onFollowButtonClick = followTopic,
                     modifier = modifier,
                 )
@@ -94,7 +94,7 @@ fun InterestsScreenPopulated() {
                     topics = previewTopics.map { FollowableTopic(it, false) }
                 ),
                 followTopic = { _, _ -> },
-                navigateToTopic = {},
+                onTopicClick = {},
             )
         }
     }
@@ -108,7 +108,7 @@ fun InterestsScreenLoading() {
             InterestsScreen(
                 uiState = InterestsUiState.Loading,
                 followTopic = { _, _ -> },
-                navigateToTopic = {},
+                onTopicClick = {},
             )
         }
     }
@@ -122,7 +122,7 @@ fun InterestsScreenEmpty() {
             InterestsScreen(
                 uiState = InterestsUiState.Empty,
                 followTopic = { _, _ -> },
-                navigateToTopic = {},
+                onTopicClick = {},
             )
         }
     }

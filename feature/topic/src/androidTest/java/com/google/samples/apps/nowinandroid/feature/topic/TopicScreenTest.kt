@@ -60,8 +60,9 @@ class TopicScreenTest {
             TopicScreen(
                 topicUiState = TopicUiState.Loading,
                 newsUiState = NewsUiState.Loading,
-                onBackClick = { },
-                onFollowClick = { },
+                onBackClick = {},
+                onFollowClick = {},
+                onTopicClick = {},
                 onBookmarkChanged = { _, _ -> },
             )
         }
@@ -78,8 +79,9 @@ class TopicScreenTest {
             TopicScreen(
                 topicUiState = TopicUiState.Success(testTopic),
                 newsUiState = NewsUiState.Loading,
-                onBackClick = { },
-                onFollowClick = { },
+                onBackClick = {},
+                onFollowClick = {},
+                onTopicClick = {},
                 onBookmarkChanged = { _, _ -> },
             )
         }
@@ -101,8 +103,9 @@ class TopicScreenTest {
             TopicScreen(
                 topicUiState = TopicUiState.Loading,
                 newsUiState = NewsUiState.Success(sampleUserNewsResources),
-                onBackClick = { },
-                onFollowClick = { },
+                onBackClick = {},
+                onFollowClick = {},
+                onTopicClick = {},
                 onBookmarkChanged = { _, _ -> },
             )
         }
@@ -122,8 +125,9 @@ class TopicScreenTest {
                 newsUiState = NewsUiState.Success(
                     sampleUserNewsResources
                 ),
-                onBackClick = { },
-                onFollowClick = { },
+                onBackClick = {},
+                onFollowClick = {},
+                onTopicClick = {},
                 onBookmarkChanged = { _, _ -> },
             )
         }

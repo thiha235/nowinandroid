@@ -40,7 +40,8 @@ class NewsResourceCardTest {
                 userNewsResource = newsWithKnownResourceType,
                 isBookmarked = false,
                 onToggleBookmark = {},
-                onClick = {}
+                onClick = {},
+                onTopicClick = {},
             )
 
             dateFormatted = dateFormatted(publishDate = newsWithKnownResourceType.publishDate)
@@ -67,7 +68,8 @@ class NewsResourceCardTest {
                 userNewsResource = newsWithUnknownResourceType,
                 isBookmarked = false,
                 onToggleBookmark = {},
-                onClick = {}
+                onClick = {},
+                onTopicClick = {},
             )
 
             dateFormatted = dateFormatted(publishDate = newsWithUnknownResourceType.publishDate)
@@ -81,7 +83,10 @@ class NewsResourceCardTest {
     @Test
     fun testTopicsChipColorBackground_matchesFollowedState() {
         composeTestRule.setContent {
-            NewsResourceTopics(topics = previewFollowableTopics)
+            NewsResourceTopics(
+                topics = previewFollowableTopics,
+                onTopicClick = {},
+            )
         }
 
         for (followableTopic in previewFollowableTopics) {

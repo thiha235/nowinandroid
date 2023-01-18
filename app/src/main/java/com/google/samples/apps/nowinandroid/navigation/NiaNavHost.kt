@@ -37,7 +37,6 @@ import com.google.samples.apps.nowinandroid.feature.topic.navigation.topicScreen
 @Composable
 fun NiaNavHost(
     navController: NavHostController,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     startDestination: String = forYouNavigationRoute
 ) {
@@ -46,14 +45,17 @@ fun NiaNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        forYouScreen()
-        bookmarksScreen()
+        val navigateToTopic = { topicId: String -> navController.navigateToTopic(topicId) }
+
+        forYouScreen(onTopicClick = navigateToTopic)
+        bookmarksScreen(onTopicClick = navigateToTopic)
         interestsGraph(
-            navigateToTopic = { topicId ->
-                navController.navigateToTopic(topicId)
-            },
+            onTopicClick = navigateToTopic,
             nestedGraphs = {
-                topicScreen(onBackClick)
+                topicScreen(
+                    onBackClick = navController::popBackStack,
+                    onTopicClick = navigateToTopic,
+                )
             }
         )
     }

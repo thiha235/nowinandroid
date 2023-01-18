@@ -138,10 +138,6 @@ class NiaAppState(
         }
     }
 
-    fun onBackClick() {
-        navController.popBackStack()
-    }
-
     fun setShowSettingsDialog(shouldShow: Boolean) {
         shouldShowSettingsDialog = shouldShow
     }
