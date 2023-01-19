@@ -52,18 +52,18 @@ fun InterestsItem(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier,
     description: String = "",
-    itemSeparation: Dp = 16.dp
+    itemSeparation: Dp = 16.dp,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .weight(1f)
                 .clickable { onClick() }
-                .padding(vertical = itemSeparation)
+                .padding(vertical = itemSeparation),
         ) {
             InterestsIcon(topicImageUrl, iconModifier.size(64.dp))
             Spacer(modifier = Modifier.width(16.dp))
@@ -76,18 +76,18 @@ fun InterestsItem(
                 Icon(
                     imageVector = NiaIcons.Add,
                     contentDescription = stringResource(
-                        id = string.card_follow_button_content_desc
-                    )
+                        id = string.card_follow_button_content_desc,
+                    ),
                 )
             },
             checkedIcon = {
                 Icon(
                     imageVector = NiaIcons.Check,
                     contentDescription = stringResource(
-                        id = string.card_unfollow_button_content_desc
-                    )
+                        id = string.card_unfollow_button_content_desc,
+                    ),
                 )
-            }
+            },
         )
     }
 }
@@ -99,13 +99,13 @@ private fun InterestContent(name: String, description: String, modifier: Modifie
             text = name,
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(
-                vertical = if (description.isEmpty()) 0.dp else 4.dp
-            )
+                vertical = if (description.isEmpty()) 0.dp else 4.dp,
+            ),
         )
         if (description.isNotEmpty()) {
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
@@ -126,7 +126,7 @@ private fun InterestsIcon(topicImageUrl: String, modifier: Modifier = Modifier) 
             model = topicImageUrl,
             contentDescription = null,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-            modifier = modifier
+            modifier = modifier,
         )
     }
 }
@@ -142,7 +142,7 @@ private fun InterestsCardPreview() {
                 following = false,
                 topicImageUrl = "",
                 onClick = { },
-                onFollowButtonClick = { }
+                onFollowButtonClick = { },
             )
         }
     }
@@ -159,7 +159,7 @@ private fun InterestsCardLongNamePreview() {
                 following = true,
                 topicImageUrl = "",
                 onClick = { },
-                onFollowButtonClick = { }
+                onFollowButtonClick = { },
             )
         }
     }
@@ -177,7 +177,7 @@ private fun InterestsCardLongDescriptionPreview() {
                 following = false,
                 topicImageUrl = "",
                 onClick = { },
-                onFollowButtonClick = { }
+                onFollowButtonClick = { },
             )
         }
     }
@@ -194,7 +194,7 @@ private fun InterestsCardWithEmptyDescriptionPreview() {
                 following = true,
                 topicImageUrl = "",
                 onClick = { },
-                onFollowButtonClick = { }
+                onFollowButtonClick = { },
             )
         }
     }

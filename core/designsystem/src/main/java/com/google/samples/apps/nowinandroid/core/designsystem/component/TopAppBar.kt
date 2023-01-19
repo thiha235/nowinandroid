@@ -45,7 +45,7 @@ fun NiaTopAppBar(
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
-    onActionClick: () -> Unit = {}
+    onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
@@ -54,7 +54,7 @@ fun NiaTopAppBar(
                 Icon(
                     imageVector = navigationIcon,
                     contentDescription = navigationIconContentDescription,
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
         },
@@ -63,12 +63,12 @@ fun NiaTopAppBar(
                 Icon(
                     imageVector = actionIcon,
                     contentDescription = actionIconContentDescription,
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
         },
         colors = colors,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -83,7 +83,7 @@ fun NiaTopAppBar(
     actionIconContentDescription: String?,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
-    onActionClick: () -> Unit = {}
+    onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
@@ -92,7 +92,7 @@ fun NiaTopAppBar(
                 Icon(
                     imageVector = actionIcon,
                     contentDescription = actionIconContentDescription,
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
         },
@@ -110,6 +110,6 @@ private fun NiaTopAppBarPreview() {
         navigationIcon = NiaIcons.Search,
         navigationIconContentDescription = "Navigation icon",
         actionIcon = NiaIcons.MoreVert,
-        actionIconContentDescription = "Action icon"
+        actionIconContentDescription = "Action icon",
     )
 }

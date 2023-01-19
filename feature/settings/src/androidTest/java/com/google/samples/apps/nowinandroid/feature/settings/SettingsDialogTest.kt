@@ -36,13 +36,12 @@ class SettingsDialogTest {
 
     @Test
     fun whenLoading_showsLoadingText() {
-
         composeTestRule.setContent {
             SettingsDialog(
                 settingsUiState = Loading,
                 onDismiss = { },
                 onChangeThemeBrand = {},
-                onChangeDarkThemeConfig = {}
+                onChangeDarkThemeConfig = {},
             )
         }
 
@@ -58,12 +57,12 @@ class SettingsDialogTest {
                 settingsUiState = Success(
                     UserEditableSettings(
                         brand = ANDROID,
-                        darkThemeConfig = DARK
-                    )
+                        darkThemeConfig = DARK,
+                    ),
                 ),
                 onDismiss = { },
                 onChangeThemeBrand = {},
-                onChangeDarkThemeConfig = {}
+                onChangeDarkThemeConfig = {},
             )
         }
 
@@ -71,7 +70,7 @@ class SettingsDialogTest {
         composeTestRule.onNodeWithText(getString(R.string.brand_default)).assertExists()
         composeTestRule.onNodeWithText(getString(R.string.brand_android)).assertExists()
         composeTestRule.onNodeWithText(
-            getString(R.string.dark_mode_config_system_default)
+            getString(R.string.dark_mode_config_system_default),
         ).assertExists()
         composeTestRule.onNodeWithText(getString(R.string.dark_mode_config_light)).assertExists()
         composeTestRule.onNodeWithText(getString(R.string.dark_mode_config_dark)).assertExists()
@@ -88,12 +87,12 @@ class SettingsDialogTest {
                 settingsUiState = Success(
                     UserEditableSettings(
                         brand = ANDROID,
-                        darkThemeConfig = DARK
-                    )
+                        darkThemeConfig = DARK,
+                    ),
                 ),
                 onDismiss = { },
                 onChangeThemeBrand = {},
-                onChangeDarkThemeConfig = {}
+                onChangeDarkThemeConfig = {},
             )
         }
 

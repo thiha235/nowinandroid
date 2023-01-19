@@ -64,7 +64,7 @@ import com.google.samples.apps.nowinandroid.feature.settings.SettingsUiState.Suc
 @Composable
 fun SettingsDialog(
     onDismiss: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     SettingsDialog(
@@ -80,15 +80,14 @@ fun SettingsDialog(
     settingsUiState: SettingsUiState,
     onDismiss: () -> Unit,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
-    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit
+    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
-
     AlertDialog(
         onDismissRequest = { onDismiss() },
         title = {
             Text(
                 text = stringResource(string.settings_title),
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
             )
         },
         text = {
@@ -98,14 +97,14 @@ fun SettingsDialog(
                     Loading -> {
                         Text(
                             text = stringResource(string.loading),
-                            modifier = Modifier.padding(vertical = 16.dp)
+                            modifier = Modifier.padding(vertical = 16.dp),
                         )
                     }
                     is Success -> {
                         SettingsPanel(
                             settings = settingsUiState.settings,
                             onChangeThemeBrand = onChangeThemeBrand,
-                            onChangeDarkThemeConfig = onChangeDarkThemeConfig
+                            onChangeDarkThemeConfig = onChangeDarkThemeConfig,
                         )
                     }
                 }
@@ -120,9 +119,9 @@ fun SettingsDialog(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable { onDismiss() }
+                    .clickable { onDismiss() },
             )
-        }
+        },
     )
 }
 
@@ -130,19 +129,19 @@ fun SettingsDialog(
 private fun SettingsPanel(
     settings: UserEditableSettings,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
-    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit
+    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
     SettingsDialogSectionTitle(text = stringResource(string.theme))
     Column(Modifier.selectableGroup()) {
         SettingsDialogThemeChooserRow(
             text = stringResource(string.brand_default),
             selected = settings.brand == DEFAULT,
-            onClick = { onChangeThemeBrand(DEFAULT) }
+            onClick = { onChangeThemeBrand(DEFAULT) },
         )
         SettingsDialogThemeChooserRow(
             text = stringResource(string.brand_android),
             selected = settings.brand == ANDROID,
-            onClick = { onChangeThemeBrand(ANDROID) }
+            onClick = { onChangeThemeBrand(ANDROID) },
         )
     }
     SettingsDialogSectionTitle(text = "Dark mode preference")
@@ -150,17 +149,17 @@ private fun SettingsPanel(
         SettingsDialogThemeChooserRow(
             text = stringResource(string.dark_mode_config_system_default),
             selected = settings.darkThemeConfig == FOLLOW_SYSTEM,
-            onClick = { onChangeDarkThemeConfig(FOLLOW_SYSTEM) }
+            onClick = { onChangeDarkThemeConfig(FOLLOW_SYSTEM) },
         )
         SettingsDialogThemeChooserRow(
             text = stringResource(string.dark_mode_config_light),
             selected = settings.darkThemeConfig == LIGHT,
-            onClick = { onChangeDarkThemeConfig(LIGHT) }
+            onClick = { onChangeDarkThemeConfig(LIGHT) },
         )
         SettingsDialogThemeChooserRow(
             text = stringResource(string.dark_mode_config_dark),
             selected = settings.darkThemeConfig == DARK,
-            onClick = { onChangeDarkThemeConfig(DARK) }
+            onClick = { onChangeDarkThemeConfig(DARK) },
         )
     }
 }
@@ -170,7 +169,7 @@ private fun SettingsDialogSectionTitle(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.titleMedium,
-        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
     )
 }
 
@@ -178,7 +177,7 @@ private fun SettingsDialogSectionTitle(text: String) {
 fun SettingsDialogThemeChooserRow(
     text: String,
     selected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         Modifier
@@ -189,11 +188,11 @@ fun SettingsDialogThemeChooserRow(
                 onClick = onClick,
             )
             .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         RadioButton(
             selected = selected,
-            onClick = null
+            onClick = null,
         )
         Spacer(Modifier.width(8.dp))
         Text(text)
@@ -203,7 +202,7 @@ fun SettingsDialogThemeChooserRow(
 @Composable
 private fun LinksPanel() {
     Row(
-        modifier = Modifier.padding(top = 16.dp)
+        modifier = Modifier.padding(top = 16.dp),
     ) {
         Column(
             Modifier.fillMaxWidth(),
@@ -212,24 +211,24 @@ private fun LinksPanel() {
             Row {
                 TextLink(
                     text = stringResource(string.privacy_policy),
-                    url = PRIVACY_POLICY_URL
+                    url = PRIVACY_POLICY_URL,
                 )
                 Spacer(Modifier.width(16.dp))
                 TextLink(
                     text = stringResource(string.licenses),
-                    url = LICENSES_URL
+                    url = LICENSES_URL,
                 )
             }
             Spacer(Modifier.height(16.dp))
             Row {
                 TextLink(
                     text = stringResource(string.brand_guidelines),
-                    url = BRAND_GUIDELINES_URL
+                    url = BRAND_GUIDELINES_URL,
                 )
                 Spacer(Modifier.width(16.dp))
                 TextLink(
                     text = stringResource(string.feedback),
-                    url = FEEDBACK_URL
+                    url = FEEDBACK_URL,
                 )
             }
         }
@@ -238,7 +237,6 @@ private fun LinksPanel() {
 
 @Composable
 private fun TextLink(text: String, url: String) {
-
     val launchResourceIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     val context = LocalContext.current
 
@@ -249,7 +247,7 @@ private fun TextLink(text: String, url: String) {
         modifier = Modifier
             .clickable {
                 ContextCompat.startActivity(context, launchResourceIntent, null)
-            }
+            },
     )
 }
 
@@ -262,11 +260,11 @@ private fun PreviewSettingsDialog() {
             settingsUiState = Success(
                 UserEditableSettings(
                     brand = DEFAULT,
-                    darkThemeConfig = FOLLOW_SYSTEM
-                )
+                    darkThemeConfig = FOLLOW_SYSTEM,
+                ),
             ),
             onChangeThemeBrand = { },
-            onChangeDarkThemeConfig = { }
+            onChangeDarkThemeConfig = { },
         )
     }
 }
@@ -279,7 +277,7 @@ private fun PreviewSettingsDialogLoading() {
             onDismiss = {},
             settingsUiState = Loading,
             onChangeThemeBrand = { },
-            onChangeDarkThemeConfig = { }
+            onChangeDarkThemeConfig = { },
         )
     }
 }

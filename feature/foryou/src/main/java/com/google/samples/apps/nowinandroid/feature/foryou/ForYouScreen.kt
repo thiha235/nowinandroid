@@ -94,7 +94,7 @@ import com.google.samples.apps.nowinandroid.core.ui.newsFeed
 @Composable
 internal fun ForYouRoute(
     modifier: Modifier = Modifier,
-    viewModel: ForYouViewModel = hiltViewModel()
+    viewModel: ForYouViewModel = hiltViewModel(),
 ) {
     val onboardingUiState by viewModel.onboardingUiState.collectAsStateWithLifecycle()
     val feedState by viewModel.feedState.collectAsStateWithLifecycle()
@@ -107,7 +107,7 @@ internal fun ForYouRoute(
         onTopicCheckedChanged = viewModel::updateTopicSelection,
         saveFollowedTopics = viewModel::dismissOnboarding,
         onNewsResourcesCheckedChanged = viewModel::updateNewsResourceSaved,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -153,7 +153,7 @@ internal fun ForYouScreen(
         modifier = modifier
             .fillMaxSize()
             .testTag("forYou:feed"),
-        state = state
+        state = state,
     ) {
         onboarding(
             onboardingUiState = onboardingUiState,
@@ -164,13 +164,13 @@ internal fun ForYouScreen(
             interestsItemModifier = Modifier.layout { measurable, constraints ->
                 val placeable = measurable.measure(
                     constraints.copy(
-                        maxWidth = constraints.maxWidth + 32.dp.roundToPx()
-                    )
+                        maxWidth = constraints.maxWidth + 32.dp.roundToPx(),
+                    ),
                 )
                 layout(placeable.width, placeable.height) {
                     placeable.place(0, 0)
                 }
-            }
+            },
         )
 
         newsFeed(
@@ -199,13 +199,13 @@ internal fun ForYouScreen(
     ) {
         val loadingContentDescription = stringResource(id = R.string.for_you_loading)
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             NiaOverlayLoadingWheel(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .testTag("forYou:loadingWheel"),
-                contentDesc = loadingContentDescription
+                contentDesc = loadingContentDescription,
             )
         }
     }
@@ -220,12 +220,13 @@ private fun LazyGridScope.onboarding(
     onboardingUiState: OnboardingUiState,
     onTopicCheckedChanged: (String, Boolean) -> Unit,
     saveFollowedTopics: () -> Unit,
-    interestsItemModifier: Modifier = Modifier
+    interestsItemModifier: Modifier = Modifier,
 ) {
     when (onboardingUiState) {
         OnboardingUiState.Loading,
         OnboardingUiState.LoadFailed,
-        OnboardingUiState.NotShown -> Unit
+        OnboardingUiState.NotShown,
+        -> Unit
 
         is OnboardingUiState.Shown -> {
             item(span = { GridItemSpan(maxLineSpan) }) {
@@ -236,7 +237,7 @@ private fun LazyGridScope.onboarding(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 24.dp),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                     Text(
                         text = stringResource(R.string.onboarding_guidance_subtitle),
@@ -244,27 +245,27 @@ private fun LazyGridScope.onboarding(
                             .fillMaxWidth()
                             .padding(top = 8.dp, start = 16.dp, end = 16.dp),
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                     TopicSelection(
                         onboardingUiState,
                         onTopicCheckedChanged,
-                        Modifier.padding(bottom = 8.dp)
+                        Modifier.padding(bottom = 8.dp),
                     )
                     // Done button
                     Row(
                         horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         NiaButton(
                             onClick = saveFollowedTopics,
                             enabled = onboardingUiState.isDismissable,
                             modifier = Modifier
                                 .padding(horizontal = 40.dp)
-                                .width(364.dp)
+                                .width(364.dp),
                         ) {
                             Text(
-                                text = stringResource(R.string.done)
+                                text = stringResource(R.string.done),
                             )
                         }
                     }
@@ -278,7 +279,7 @@ private fun LazyGridScope.onboarding(
 private fun TopicSelection(
     onboardingUiState: OnboardingUiState.Shown,
     onTopicCheckedChanged: (String, Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = trace("TopicSelection") {
     val lazyGridState = rememberLazyGridState()
     TrackScrollJank(scrollableState = lazyGridState, stateName = "forYou:TopicSelection")
@@ -300,7 +301,7 @@ private fun TopicSelection(
             // upper bound for how much space we need in that case.
             // The maximum of these two bounds is therefore a valid upper bound in all cases.
             .heightIn(max = max(240.dp, with(LocalDensity.current) { 240.sp.toDp() }))
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         items(onboardingUiState.topics) {
             SingleTopicButton(
@@ -308,7 +309,7 @@ private fun TopicSelection(
                 topicId = it.topic.id,
                 imageUrl = it.topic.imageUrl,
                 isSelected = it.isFollowed,
-                onClick = onTopicCheckedChanged
+                onClick = onTopicCheckedChanged,
             )
         }
     }
@@ -321,7 +322,7 @@ private fun SingleTopicButton(
     topicId: String,
     imageUrl: String,
     isSelected: Boolean,
-    onClick: (String, Boolean) -> Unit
+    onClick: (String, Boolean) -> Unit,
 ) = trace("SingleTopicButton") {
     Surface(
         modifier = Modifier
@@ -332,14 +333,14 @@ private fun SingleTopicButton(
         selected = isSelected,
         onClick = {
             onClick(topicId, !isSelected)
-        }
+        },
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 12.dp, end = 8.dp)
+            modifier = Modifier.padding(start = 12.dp, end = 8.dp),
         ) {
             TopicIcon(
-                imageUrl = imageUrl
+                imageUrl = imageUrl,
             )
             Text(
                 text = name,
@@ -347,7 +348,7 @@ private fun SingleTopicButton(
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .weight(1f),
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
             NiaIconToggleButton(
                 checked = isSelected,
@@ -355,15 +356,15 @@ private fun SingleTopicButton(
                 icon = {
                     Icon(
                         imageVector = NiaIcons.Add,
-                        contentDescription = name
+                        contentDescription = name,
                     )
                 },
                 checkedIcon = {
                     Icon(
                         imageVector = NiaIcons.Check,
-                        contentDescription = name
+                        contentDescription = name,
                     )
-                }
+                },
             )
         }
     }
@@ -372,7 +373,7 @@ private fun SingleTopicButton(
 @Composable
 fun TopicIcon(
     imageUrl: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     AsyncImage(
         // TODO b/228077205, show loading image visual instead of static placeholder
@@ -382,7 +383,7 @@ fun TopicIcon(
         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
         modifier = modifier
             .padding(10.dp)
-            .size(32.dp)
+            .size(32.dp),
     )
 }
 
@@ -395,11 +396,11 @@ fun ForYouScreenPopulatedFeed() {
                 isSyncing = false,
                 onboardingUiState = OnboardingUiState.NotShown,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = previewUserNewsResources,
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
-                onNewsResourcesCheckedChanged = { _, _ -> }
+                onNewsResourcesCheckedChanged = { _, _ -> },
             )
         }
     }
@@ -414,11 +415,11 @@ fun ForYouScreenOfflinePopulatedFeed() {
                 isSyncing = false,
                 onboardingUiState = OnboardingUiState.NotShown,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = previewUserNewsResources,
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
-                onNewsResourcesCheckedChanged = { _, _ -> }
+                onNewsResourcesCheckedChanged = { _, _ -> },
             )
         }
     }
@@ -435,11 +436,11 @@ fun ForYouScreenTopicSelection() {
                     topics = previewTopics.map { FollowableTopic(it, false) },
                 ),
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = previewUserNewsResources,
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
-                onNewsResourcesCheckedChanged = { _, _ -> }
+                onNewsResourcesCheckedChanged = { _, _ -> },
             )
         }
     }
@@ -456,7 +457,7 @@ fun ForYouScreenLoading() {
                 feedState = NewsFeedUiState.Loading,
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
-                onNewsResourcesCheckedChanged = { _, _ -> }
+                onNewsResourcesCheckedChanged = { _, _ -> },
             )
         }
     }
@@ -471,11 +472,11 @@ fun ForYouScreenPopulatedAndLoading() {
                 isSyncing = true,
                 onboardingUiState = OnboardingUiState.Loading,
                 feedState = NewsFeedUiState.Success(
-                    feed = previewUserNewsResources
+                    feed = previewUserNewsResources,
                 ),
                 onTopicCheckedChanged = { _, _ -> },
                 saveFollowedTopics = {},
-                onNewsResourcesCheckedChanged = { _, _ -> }
+                onNewsResourcesCheckedChanged = { _, _ -> },
             )
         }
     }

@@ -61,7 +61,7 @@ val LightDefaultColorScheme = lightColorScheme(
     onSurfaceVariant = PurpleGray30,
     inverseSurface = DarkPurpleGray20,
     inverseOnSurface = DarkPurpleGray95,
-    outline = PurpleGray50
+    outline = PurpleGray50,
 )
 
 /**
@@ -93,7 +93,7 @@ val DarkDefaultColorScheme = darkColorScheme(
     onSurfaceVariant = PurpleGray80,
     inverseSurface = DarkPurpleGray90,
     inverseOnSurface = DarkPurpleGray10,
-    outline = PurpleGray60
+    outline = PurpleGray60,
 )
 
 /**
@@ -125,7 +125,7 @@ val LightAndroidColorScheme = lightColorScheme(
     onSurfaceVariant = GreenGray30,
     inverseSurface = DarkGreenGray20,
     inverseOnSurface = DarkGreenGray95,
-    outline = GreenGray50
+    outline = GreenGray50,
 )
 
 /**
@@ -157,7 +157,7 @@ val DarkAndroidColorScheme = darkColorScheme(
     onSurfaceVariant = GreenGray80,
     inverseSurface = DarkGreenGray90,
     inverseOnSurface = DarkGreenGray10,
-    outline = GreenGray60
+    outline = GreenGray60,
 )
 
 /**
@@ -191,12 +191,12 @@ val DarkAndroidBackgroundTheme = BackgroundTheme(color = Color.Black)
 fun NiaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     androidTheme: Boolean = false,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) = NiaTheme(
     darkTheme = darkTheme,
     androidTheme = androidTheme,
     disableDynamicTheming = false,
-    content = content
+    content = content,
 )
 
 /**
@@ -214,7 +214,7 @@ internal fun NiaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     androidTheme: Boolean = false,
     disableDynamicTheming: Boolean,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     // Color scheme
     val colorScheme = when {
@@ -230,7 +230,7 @@ internal fun NiaTheme(
     val defaultGradientColors = GradientColors(
         top = colorScheme.inverseOnSurface,
         bottom = colorScheme.primaryContainer,
-        container = colorScheme.surface
+        container = colorScheme.surface,
     )
     val gradientColors = when {
         androidTheme -> if (darkTheme) DarkAndroidGradientColors else LightAndroidGradientColors
@@ -240,7 +240,7 @@ internal fun NiaTheme(
     // Background theme
     val defaultBackgroundTheme = BackgroundTheme(
         color = colorScheme.surface,
-        tonalElevation = 2.dp
+        tonalElevation = 2.dp,
     )
     val backgroundTheme = when {
         androidTheme -> if (darkTheme) DarkAndroidBackgroundTheme else LightAndroidBackgroundTheme
@@ -249,12 +249,12 @@ internal fun NiaTheme(
     // Composition locals
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,
-        LocalBackgroundTheme provides backgroundTheme
+        LocalBackgroundTheme provides backgroundTheme,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = NiaTypography,
-            content = content
+            content = content,
         )
     }
 }
